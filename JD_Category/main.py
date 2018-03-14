@@ -47,7 +47,7 @@ def get_Two_Categoary(categoary_Id, name):
     jsonList = json.loads(jsonObject['catalogBranch'])['data']
     for list in jsonList:
         # 二级分类名称
-        two_name = list['name']
+        two_name = str(list['name']).replace('/','-')
         print('正在一级分类<' + name + '>' + '的处理二级分类' + two_name)
         two_dirPath = one_path + '/' + two_name
         if not os.path.exists(two_dirPath):
@@ -69,7 +69,7 @@ def get_Two_Categoary(categoary_Id, name):
 
 def downloaderPic(url: str, savePath: str, name: str):
     try:
-        req = requests.get(url, timeout=10)
+        req = requests.get('http:' + url, timeout=10)
         if os.path.exists(savePath):
             three_path = savePath + '/' + name.replace('/', '') + '.jpg'
             fp = open(three_path, "wb")
